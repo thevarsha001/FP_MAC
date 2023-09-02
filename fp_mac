@@ -1,3 +1,4 @@
+
 module fp_mac(a,b,clk,reset,out);
 input[31:0]a,b;
 input clk, reset;
