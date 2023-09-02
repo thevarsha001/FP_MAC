@@ -30,4 +30,7 @@ module test_bench;
 #20;
 end	
      always #1 clk=(~clk);  
+initial begin
+#100 $finish
+end
 endmodule
