@@ -1,0 +1,63 @@
+module fpmul(
+    input [31:0] A,
+    input [31:0] B,
+    output [31:0] P
+    );
+    
+wire Sa = A[31];
+wire Sb = B[31];
+wire Sp;
+wire [7:0] Ea = A[30:23];
+wire [7:0] Eb = B[30:23];
+wire [7:0] Etemp;
+wire [7:0] Ep;
+wire [23:0] Ma = {1'b1, A[22:0]};
+wire [23:0] Mb = {1'b1, B[22:0]};
+wire [22:0] Mp;
+wire [47:0] M_mul;
+
+
+assign M_mul = Ma * Mb;
+assign Etemp = Ea+Eb-8'd127;
+xor a1(Sp,Sa,Sb);
+
+normalization a2(M_mul,Etemp,Ep,Mp);
+
+assign P = {Sp,Ep,Mp};
+endmodule
+
+module normalization ( input [47:0]M, input [7:0] e, output reg[7:0] eo, output reg[22:0] Mo);
+reg state = 1'b0;
+reg [47:0]Mi = 48'd0;
+reg [7:0]ei = 8'd0;
+reg [7:0]eout = 8'd0;
+reg [47:0]Mout = 48'd0;
+always @(M,e)
+begin
+    Mi = M;
+    ei =e;
+    while (state == 1'b0)
+        begin
+                    if(Mi[47]==1'b1)
+                    begin
+                        ei =ei + 8'd1;
+                        Mout = Mi[46:24];
+                        state = 1'b1;
+                    end
+                    else
+                    begin
+                        Mi = {Mi[46:0],1'b0};
+                        ei = ei - 8'd1;
+                    end
+              end
+         
+                    eout = ei;
+                    eo = eout;
+                    Mo = Mout;
+                    //state = 1'd0;
+             
+      
+     
+end
+
+endmodule
