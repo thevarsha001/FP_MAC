@@ -1,1 +1,1 @@
-# spi
+ MAC is the basic building block of signal processing processor.Our initial accomplishment involved the implementation of a truncated Wallace-based single precision Floating-Point Multiplier and Floating-Point Adder using Verilog within Xilinx Vivado. By seamlessly integrating these algorithms into the MAC framework, I successfully achieved our desired outcomes, showcasing expertise in signal processing, Verilog programming, and FPGA tools.
